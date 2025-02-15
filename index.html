@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>CB Tiles Ellipse Mouse</title>
+  <title>CB Tiles Ellispe Mouse</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
   <style>
     body {
@@ -25,18 +25,17 @@
       background(0); // Set background color to black
       fill(241, 241, 241); // Set fill color to light gray (#f1f1f1)
 
-      let tilesX = mouseX / 10; // Number of tiles in the X direction
-      let tilesY = mouseY / 10; // Number of tiles in the Y direction
+      // Calculate number of tiles that fit perfectly in the window
+      let tilesX = floor(mouseX / 10) || 1; // Avoid division by zero
+      let tilesY = floor(mouseY / 10) || 1;
 
-      let tileW = windowsWidth / tilesX; // Width of each tile
-      let tileH = windowHeight / tilesY; // Height of each tile
+      let tileW = width / tilesX; // Calculate width of each tile
+      let tileH = height / tilesY; // Calculate height of each tile
 
-      translate(tileW / 2, tileH / 2); // Offset the grid for proper alignment
-
-      // Nested loops to draw the grid of ellipses
+      // Draw grid of ellipses
       for (let x = 0; x < tilesX; x++) {
         for (let y = 0; y < tilesY; y++) {
-          ellipse(x * tileW, y * tileH, tileW, tileH);
+          ellipse(x * tileW + tileW / 2, y * tileH + tileH / 2, tileW, tileH);
         }
       }
     }
