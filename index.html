@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CB Tiles Ellipse Mouse</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    function setup() {
+      createCanvas(windowWidth, windowHeight); // Fullscreen canvas
+      noStroke();
+    }
+
+    function draw() {
+      background(0); // Set background color to black
+      fill(241, 241, 241); // Set fill color to light gray (#f1f1f1)
+
+      let tilesX = mouseX / 10; // Number of tiles in the X direction
+      let tilesY = mouseY / 10; // Number of tiles in the Y direction
+
+      let tileW = width / tilesX; // Width of each tile
+      let tileH = height / tilesY; // Height of each tile
+
+      translate(tileW / 2, tileH / 2); // Offset the grid for proper alignment
+
+      // Nested loops to draw the grid of ellipses
+      for (let x = 0; x < tilesX; x++) {
+        for (let y = 0; y < tilesY; y++) {
+          ellipse(x * tileW, y * tileH, tileW, tileH);
+        }
+      }
+    }
+
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight); // Adjust canvas size dynamically
+    }
+  </script>
+</body>
+</html>
