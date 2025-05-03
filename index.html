@@ -18,11 +18,12 @@
   <script>
     let bgColor;
     let ellipseColor;
+    let initialized = false;
 
     function setup() {
       createCanvas(windowWidth, windowHeight);
       noStroke();
-      randomizeColors();
+      setInitialColors();
     }
 
     function draw() {
@@ -52,11 +53,21 @@
       }
     }
 
+    function setInitialColors() {
+      bgColor = color(0);       // black background
+      ellipseColor = color(255); // white ellipses
+      initialized = true;
+    }
+
     function randomizeColors() {
+      let newBg, newFill;
       do {
-        bgColor = color(random(255), random(255), random(255));
-        ellipseColor = color(random(255), random(255), random(255));
-      } while (colorsAreEqual(bgColor, ellipseColor));
+        newBg = color(random(255), random(255), random(255));
+        newFill = color(random(255), random(255), random(255));
+      } while (colorsAreEqual(newBg, newFill));
+
+      bgColor = newBg;
+      ellipseColor = newFill;
     }
 
     function colorsAreEqual(c1, c2) {
