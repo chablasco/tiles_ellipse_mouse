@@ -40,6 +40,11 @@
       }
     }
 
+    function mousePressed() {
+    let fs = fullscreen();
+    fullscreen(!fs);
+    }
+
     function windowResized() {
       resizeCanvas(windowWidth, windowHeight); // Adjust canvas size dynamically
     }
