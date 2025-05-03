@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>CB Tiles Ellispe Mouse</title>
+  <title>CB Tiles Ellipse Color Switch</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
   <style>
     body {
@@ -16,23 +16,25 @@
 </head>
 <body>
   <script>
+    let bgColor;
+    let ellipseColor;
+
     function setup() {
-      createCanvas(windowWidth, windowHeight); // Fullscreen canvas
+      createCanvas(windowWidth, windowHeight);
       noStroke();
+      randomizeColors();
     }
 
     function draw() {
-      background(0); // Set background color to black
-      fill(241, 241, 241); // Set fill color to light gray (#f1f1f1)
+      background(bgColor);
+      fill(ellipseColor);
 
-      // Calculate number of tiles that fit perfectly in the window
-      let tilesX = floor(mouseX / 10) || 1; // Avoid division by zero
+      let tilesX = floor(mouseX / 10) || 1;
       let tilesY = floor(mouseY / 10) || 1;
 
-      let tileW = width / tilesX; // Calculate width of each tile
-      let tileH = height / tilesY; // Calculate height of each tile
+      let tileW = width / tilesX;
+      let tileH = height / tilesY;
 
-      // Draw grid of ellipses
       for (let x = 0; x < tilesX; x++) {
         for (let y = 0; y < tilesY; y++) {
           ellipse(x * tileW + tileW / 2, y * tileH + tileH / 2, tileW, tileH);
@@ -40,13 +42,35 @@
       }
     }
 
+    function keyPressed() {
+      if (key === 's' || key === 'S') {
+        saveCanvas('cb_tiles_colored', 'png');
+      }
+
+      if (key === 'c' || key === 'C') {
+        randomizeColors();
+      }
+    }
+
+    function randomizeColors() {
+      do {
+        bgColor = color(random(255), random(255), random(255));
+        ellipseColor = color(random(255), random(255), random(255));
+      } while (colorsAreEqual(bgColor, ellipseColor));
+    }
+
+    function colorsAreEqual(c1, c2) {
+      return red(c1) === red(c2) &&
+             green(c1) === green(c2) &&
+             blue(c1) === blue(c2);
+    }
+
     function mousePressed() {
-    let fs = fullscreen();
-    fullscreen(!fs);
+      fullscreen(!fullscreen());
     }
 
     function windowResized() {
-      resizeCanvas(windowWidth, windowHeight); // Adjust canvas size dynamically
+      resizeCanvas(windowWidth, windowHeight);
     }
   </script>
 </body>
